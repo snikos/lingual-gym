@@ -1,0 +1,2 @@
+/*duolingo*/
+var der31 = [""];
