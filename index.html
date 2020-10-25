@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags | I'd ask you why it needs to do so but I can not..-->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title id="title">go to the gym</title>
+  <link rel="stylesheet" href="css/style.css">
+  <!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+</head>
+<body>
+  <div class="widget">
+    <div class="btn-box"><button class="btn-check" type="button"><span id="addMemo" title="запомнить слово">M+</span></button><button class="btn-check" type="button"><span id="resetLS" title="стереть память">R-</span></button><button id="hint" class="btn-check" type="button" title="подсказка"><span>?</span></button><button id="ruen" class="btn-check" type="button" title="ru-en"><span>&#8633;</span></button><button id="nextPhrase" class="btn-check" type="button" title="Next phrase"><span>&#8635;</span></button></div>
+
+    <ul class="widget-tabs">
+	  <!--Deus Ex-->
+      <li class="widget-tab">
+        <button type="button" data-id="deusex" class="widget-tab-link">DE</button>
+      <li class="widget-tab">
+        <button type="button" data-id="managers" class="widget-tab-link">Memo</button>
+        <!-- Omitting the end tag is valid HTML and removes the space in-between inline blocks. -->
+      <li class="widget-tab">
+        <button type="button" data-id="designers" class="widget-tab-link">Text</button>
+      <li class="widget-tab current">
+        <button type="button" data-id="developers" class="widget-tab-link">Puzzle</button>
+    </ul>
+	
+  	<div class="widget-list" id="deusex">
+  	    <nav id="deusex-nav">
+  			<button type="button" id="prev-Slide" class="button-dx lt">prev</button>
+  			<button type="button" id="rand-Slide" class="button-dx">random</button>
+  			<button type="button" id="next-Slide" class="button-dx rt">next</button>
+  			<span id="datas"></span>
+  		</nav>
+  		<ol id="deusex-box"></ol>
+  	</div>
+	
+    <ol class="widget-list" id="managers"></ol>
+
+    <ol class="widget-list" id="designers"></ol>
+
+	  <ol class="widget-list open" id="developers"></ol>
+  </div>
+
+  <script type="text/javascript" src="js/jquery-3.5.0.js"></script>
+  <script type="text/javascript" src="js/init.js" defer="defer"></script>
+</body>
+</html>
