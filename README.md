@@ -1,7 +1,13 @@
-Preview: https://snikos.github.io/lingual-gym/
+## Lingual gym
 
-#and:
+### DEMO
+https://snikos.github.io/lingual-gym/
 
-# lingual-gym
+<p align="left">Welcome to the gym for a lingual 'workout'</p>
 
-welcome to the gym for a lingual workout
+#### Front Tools
+<p>html</p>
+<p>css</p>
+<p>javascript</p>
+<p>jQuery</p>
+<p>json</p>
