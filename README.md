@@ -1,3 +1,4 @@
+<<<<<<< .mine
 ## Lingual gym
 
 ### DEMO
