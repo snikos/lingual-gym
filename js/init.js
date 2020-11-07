@@ -180,13 +180,13 @@ if (!Array.prototype.shuffle) {
 					if( idx < currentPfx.length-1 ){
 						var savagen = (Math.round(Math.random()*99)).toString(2);
 						var memo = el.split('~~');
-						var tpl = '<li><a class="widget-list-link"><span class="box-img" data-string="'+el+'"><img src="http://www.gravatar.com/avatar/'+savagen+'?f=y&amp;s=32&amp;d=identicon"'+'onerror="this.src=\'css/err.png\'"></span><p><dfn>'+memo[0]+'</dfn><ins>'+memo[1]+'</ins><span class="count">text</span></p></a></li>';
+						var tpl = '<li><a class="widget-list-link"><span class="box-img" data-string="'+el+'"><img src="https://www.gravatar.com/avatar/'+savagen+'?f=y&amp;s=32&amp;d=identicon"'+'onerror="this.src=\'css/err.png\'"></span><p><dfn>'+memo[0]+'</dfn><ins>'+memo[1]+'</ins><span class="count">text</span></p></a></li>';
 						$(document).find('#managers').append(tpl);
 					}
 				});
 			} else {
 				var savagen = (Math.round(Math.random()*99)).toString(2);
-				var tpl = '<li><a class="widget-list-link"><span class="box-img" data-string=""><img src="http://www.gravatar.com/avatar/'+savagen+'?f=y&amp;s=32&amp;d=identicon"'+'onerror="this.src=\'css/err.png\'"></span><p>Clean<span class="count">text</span></p></a></li>';
+				var tpl = '<li><a class="widget-list-link"><span class="box-img" data-string=""><img src="https://www.gravatar.com/avatar/'+savagen+'?f=y&amp;s=32&amp;d=identicon"'+'onerror="this.src=\'css/err.png\'"></span><p>Clean<span class="count">text</span></p></a></li>';
 				$(document).find('#managers').append(tpl);
 			}
 		},
@@ -361,7 +361,7 @@ if (!Array.prototype.shuffle) {
 			//console.log('savagen: '+ memo);
 			var tpl = '<li><a class="widget-list-link">'+
 			'<span class="box-img" data-string="'+memo+'">'+
-			'<img src="http://www.gravatar.com/avatar/'+savagen+'?f=y&amp;s=64&amp;d=identicon"'+
+			'<img src="https://www.gravatar.com/avatar/'+savagen+'?f=y&amp;s=64&amp;d=identicon"'+
 			'onerror="this.src=\'css/err.png\'"></span>'+
 			'<p><dfn>'+memon[0]+'</dfn><ins>'+memon[1]+'</ins><span class="count">text</span></p></a></li>';
 			$(document).find('#managers').append(tpl);
