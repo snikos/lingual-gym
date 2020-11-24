@@ -320,11 +320,11 @@ if (!Array.prototype.shuffle) {
 				designers();
 				function developers(){
 					var aw = widget.counter('forex');
-					var tpl = '<li class="ex">'+((l==='en')?lang1:lang2)+'</li>';
+					var tpl = '<li class="alert"><span class="status">Try!</span><span class="counter">All words:'+(aw)+'</span><span id="resetPhrase">reset</span></li>';
+					tpl += '<li class="ex">'+((l==='en')?lang1:lang2)+'</li>';
 					tpl += '<li class="test-area"></li>';
 					tpl += '<li class="puzzle">'+((l==='en')?tplSpan(lang2):tplSpan(lang1))+'</li>';
 					tpl += '<li class="hint"></li>';
-					tpl += '<li class="alert"><span class="status">Try!</span><span class="counter">All words:'+(aw)+'</span><span id="resetPhrase">reset</span></li>';
 
 					//this.clearAll();
 					widget.widgetDom.eq(-1).html( tpl );

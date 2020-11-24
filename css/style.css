@@ -98,19 +98,16 @@ table {
   margin: 0 -1px;
 }
 
-/*
- * Copyright (c) 2013 Thibaut Courouble
- * http://www.cssflow.com
- *
- * Licensed under the MIT License:
- * http://www.opensource.org/licenses/mit-license.php
- */
-/* Note: this implementation is very hacky.
-   You may not want to use it in production. ;) */
+
+html{
+  min-height: 98%;
+}
+
 body {
   font: 12px/20px 'Lucida Grande', Verdana, sans-serif;
   color: #404040;
-  background: #eee;
+  background-color: #eee;
+  height: 95%;
 }
 
 .widget {
@@ -118,7 +115,9 @@ body {
   margin: 50px auto;
   min-width: 220px;
   max-width: 640px;
-  background: white;
+  min-height: 560px;
+  height: 80%;
+  background-color: #fff;
   border: 1px solid #ccc;
   border-radius: 4px;
   -webkit-box-shadow: 0 0 8px rgba(0, 0, 0, 0.07);
@@ -322,10 +321,10 @@ li:last-child > .widget-list-link {
   text-shadow: none;
 }
 .widget .btn-box{
-    padding: 2px 2px 0px;
+    padding: 6px 6px 0px;
     z-index: 10;
-    width: 100%;
     float: right;
+    text-align: right;
 }
 .widget .btn-box:after{
 	content: "";
@@ -390,8 +389,10 @@ li:last-child > .widget-list-link {
 	display: none;
 }
 #developers .alert{
-	background-color: #da2525;
+	background-color: rgb(244, 67, 54);
 	color: #fff;
+  margin: 12px;
+  padding: 4px 8px;
 }
 #developers .alert #addMemo{
     background-color: #fff;
