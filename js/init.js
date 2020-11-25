@@ -171,11 +171,13 @@ if (!Array.prototype.shuffle) {
 		},
 		getupLS: function(prefix){
 			var ls = window.localStorage;
+			var zero = '<li class="tac"><b>Need to click "M+" to add a text right here.</b></li>';
+			$(document).find('#managers').append(zero);
 			if( ls.length === 0 ) return;
 
 			if( ls['db'+'-'+'memo'] !== undefined ){
 				var currentPfx = (ls['db'+'-'+'memo']).split('|');
-				//console.log('Ls:'+ ls['db'+'-'+'memo']);
+				$(document).find('#managers').empty();
 				$.each(currentPfx, function(idx, el){
 					if( idx < currentPfx.length-1 ){
 						var savagen = (Math.round(Math.random()*99)).toString(2);
@@ -193,25 +195,17 @@ if (!Array.prototype.shuffle) {
 		/* save localStorage */
 		saveLS: function(prefix,curUltimatum,curItemIndex){
 			var ls = window.localStorage;
-			/*var oldArr = [], newArr = [];
-
-			if(curUltimatum == '') return;
-				oldArr.push(ls[prefix+'-'+curUltimatum]);
-				( oldArr[0] == undefined ) ? oldArr = [] : oldArr = oldArr;
-				oldArr.push(curItemIndex);
-				newArr = newArr.concat( oldArr, newArr );
-				ls[prefix+'-'+curUltimatum] = newArr;*/
 			var oldstr='', newstr='';
 			if(curUltimatum == '') return;
 			    oldstr += ls[prefix+'-'+curUltimatum];
 				(oldstr === 'undefined') ? oldstr = '' : oldstr = oldstr;
-				console.log(oldstr.search(curItemIndex));
+				//console.log(oldstr.search(curItemIndex));
 				if( oldstr.search(curItemIndex) === -1 ){ 
-					console.log(oldstr.search(curItemIndex));
+					//console.log(oldstr.search(curItemIndex));
 					oldstr += curItemIndex+'|';
 					newstr += oldstr;
 					ls[prefix+'-'+curUltimatum] = newstr;
-					console.log(oldstr + ':'+ newstr);
+					//console.log(oldstr + ':'+ newstr);
 			    }
 		},
 		widgetDom: $(document).find('.widget .widget-list'),
@@ -320,7 +314,7 @@ if (!Array.prototype.shuffle) {
 				designers();
 				function developers(){
 					var aw = widget.counter('forex');
-					var tpl = '<li class="alert"><span class="status">Try!</span><span class="counter">All words:'+(aw)+'</span><span id="resetPhrase">reset</span></li>';
+					var tpl = '<li class="startus"><span class="status">Try!</span><span class="counter">All words:'+(aw)+'</span><span id="resetPhrase">reset</span></li>';
 					tpl += '<li class="ex">'+((l==='en')?lang1:lang2)+'</li>';
 					tpl += '<li class="test-area"></li>';
 					tpl += '<li class="puzzle">'+((l==='en')?tplSpan(lang2):tplSpan(lang1))+'</li>';
@@ -344,12 +338,6 @@ if (!Array.prototype.shuffle) {
 					widget.clickCounter = 0;
 				}
 		  });
-		},
-		compareArray: function (a, b) {
-			//It works sometimes wrong
-			return !a.some(function (e, i) {
-				return e != b[i];
-			});
 		},
 		log: function(a){
 			//console.log( typeof a, a, arguments.callee);
@@ -375,12 +363,12 @@ if (!Array.prototype.shuffle) {
 					var dataCurrenPhrase = widget.getData(widget.supObj, 'currentPhrase');
 					var currenText = ($(this).text()).toLowerCase();
 					var btnNextStep = $('#nextPhrase');
+					var getStrong = function(o){ return JSON.stringify(o) };
 					widget.setData(widget.supObj, 'currentPhrase').push(currenText);
 					$(this).addClass('hide');
 					//console.log( 'currenText: '+ currenText +'\ndataCurrPhrase: '+ dataCurrenPhrase +'\ndataRealPhrase: '+ dataRealPhrase );
-					//if ( widget.compareArray(dataRealPhrase, dataCurrenPhrase) ){
-					if ( JSON.stringify(dataRealPhrase) === JSON.stringify(dataCurrenPhrase) ){
-						widget.widgetDom.find('.alert').addClass('success').children('.status').html('Success!');
+					if ( getStrong(dataRealPhrase) === getStrong(dataCurrenPhrase) ){
+						widget.widgetDom.find('.startus').addClass('success').children('.status').html('Success!');
 						btnNextStep.addClass('active');
 						//$(document).off('click.drop', '.test-area .frog');
 					}
@@ -393,12 +381,15 @@ if (!Array.prototype.shuffle) {
 					var $that = $(this);
 					var hook = $that.data('hook');
 					var btnNextStep = $('#nextPhrase');
-					widget.setData(widget.supObj, 'currentPhrase').pop();
+
+					var nextxt = $that.index();
+					widget.setData(widget.supObj, 'currentPhrase').splice(nextxt, 1);
+
 					$(document).find('.puzzle .frog').filter( function(){
 						$(this).data('hook') === hook ? $(this).removeClass('hide') : '';
 					});
 					$(this).remove();
-					widget.widgetDom.find('.alert').removeClass('success').children('.status').html('Carry on!');
+					widget.widgetDom.find('.startus').removeClass('success').children('.status').html('Carry on!');
 					btnNextStep.removeClass('active');
 					event.stopPropagation();
 					event.preventDefault();
@@ -412,7 +403,7 @@ if (!Array.prototype.shuffle) {
 					$(document).find('.test-area').empty();
 					$(document).find('.puzzle .frog').removeClass('hide');
 					widget.setData(widget.supObj, 'currentPhrase', []);
-					widget.widgetDom.find('.alert').removeClass('success').children('.status').html(txt);
+					widget.widgetDom.find('.startus').removeClass('success').children('.status').html(txt);
 					return false;
 				});
 			},
@@ -421,10 +412,9 @@ if (!Array.prototype.shuffle) {
 					var rel = widget.setData(widget.supObj, 'realPhraseTwo');
 					var val = $(this).val();
 					var btnNextStep = $('#nextPhrase');
-					rel = rel.toString().trim().toLowerCase();
-					val = val.toString().trim().toLowerCase();
-					console.log( 'real: '+ (typeof rel) +':'+ rel +'\nmain: '+ (typeof val) +':'+ val );
-					if ( JSON.stringify(rel) === JSON.stringify(val) ){
+					var getStrong = function(o){ return JSON.stringify(o).toString().trim().toLowerCase() };
+					//console.log( 'real: '+ (typeof rel) +':'+ rel +'\nmain: '+ (typeof val) +':'+ val );
+					if ( getStrong(rel)===getStrong(val) ){
 						$(this).addClass('success');
 						btnNextStep.addClass('active');
 					} else {
@@ -457,6 +447,10 @@ if (!Array.prototype.shuffle) {
 					var l = widget.getData(widget.supObj, 'lang');
 					//console.log('langData: '+ l);
 					widget.testStarter(l);
+
+					setTimeout(function(){
+						$('#nextPhrase').removeClass('active');
+					}, 3500);
 					event.stopPropagation();
 					event.preventDefault();
 				});
@@ -464,7 +458,7 @@ if (!Array.prototype.shuffle) {
 			addMemo: function(){
 				$(document).on('click', '#addMemo', function(event){
 					var memo = widget.getData(widget.supObj, 'dataMemo');
-					console.log('memo: '+ memo);
+					//console.log('memo: '+ memo);
 					widget.saveLS('db', 'memo', memo);
 					widget.createMemo();
 					event.stopPropagation();

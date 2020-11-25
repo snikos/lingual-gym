@@ -356,6 +356,9 @@ li:last-child > .widget-list-link {
 	color: #d1d1d1;
 	text-shadow: -1px -1px 0px #fff;
 }
+.widget .btn-check:focus{
+  outline: 2px solid rgba(255, 255, 255, 1);
+}
 
 /* |-|-|-| developers */
 #developers .ex{
@@ -385,62 +388,76 @@ li:last-child > .widget-list-link {
 #developers .puzzle{
     padding: 2px 12px;
 }
-#developers .hint{
-	display: none;
-}
-#developers .alert{
-	background-color: rgb(244, 67, 54);
-	color: #fff;
+#developers .startus{
+  background-color: rgb(76, 200, 241);
+  color: #fff;
   margin: 12px;
   padding: 4px 8px;
 }
-#developers .alert #addMemo{
-    background-color: #fff;
-    cursor: pointer;
-    color: #da2525;
-    padding: 0px 10px;
-    float: right;
-    border-radius: 3px;
-	font-weight: 600;
-	font-size: 11px;
-    box-shadow: inset 0px 0px 3px 0px #da2525;
+#developers .alert{
+	background-color: rgb(255, 69, 0);
 }
-#developers .alert .counter{
-    background-color: #fff;
-    cursor: default;
-    color: #da2525;
-    padding: 0px 10px;
-    float: right;
-    border-radius: 3px;
-	font-weight: 600;
-	font-size: 11px;
-    box-shadow: inset 0px 0px 3px 0px #da2525;
-}
-#developers .alert.success{
-	background-color: #2b982b;
-}
-#developers .alert.success .counter{
-	color: #2b982b;
-}
-
-#resetPhrase{
-  background-color: rgb(255 255 255);
+#developers #addMemo{
+  background-color: #fff;
   cursor: pointer;
-  color: rgb(218 37 37);
+  color: #da2525;
   padding: 0px 10px;
   float: right;
   border-radius: 3px;
   font-weight: 600;
   font-size: 11px;
   box-shadow: inset 0px 0px 3px 0px #da2525;
+}
+#developers .counter{
+  background-color: #fff;
+  cursor: default;
+  color: #000;
+  padding: 0px 10px;
+  float: right;
+  border-radius: 3px;
+	font-weight: 600;
+	font-size: 11px;
+  box-shadow: inset 0px 0px 3px 0px #da2525;
+}
+#developers .success{
+	background-color: #2b982b;
+}
+#developers .success .counter{
+	color: #2b982b;
+}
+
+#resetPhrase{
+  background-color: #fff;
+  cursor: pointer;
+  padding: 0px 10px;
+  float: right;
+  border-radius: 3px;
+  font-weight: 600;
+  font-size: 11px;
   margin-right: 12px;
+}
+.startus #resetPhrase{
+  box-shadow: inset 0px 0px 3px 0px rgb(76, 200, 241);
+  color: rgb(76, 200, 241);
+}
+.alert #resetPhrase{
+  box-shadow: inset 0px 0px 3px 0px rgb(255, 69, 0);
+  color: rgb(255, 69, 0);
+}
+.success #resetPhrase{
+  box-shadow: inset 0px 0px 3px 0px #2b982b;
+  color: rgb(43, 152, 43);
+}
+#nextPhrase{
+  background-color: rgb(76, 200, 241);
+}
+#nextPhrase span{
+  color: #fff;
+  text-shadow: none;
 }
 
 /* |-|-|-| designers */
 #designers{}
-#designers .hint{
-	display: none;
-}
 #designers .enter{
 	font-size: 18px;
 	font-style: normal;
@@ -462,10 +479,19 @@ li:last-child > .widget-list-link {
 	line-height: 22px;
 	font-size: 18px;
 }
+#inputText:focus{
+  outline: 0;
+}
 #inputText.success{
 	background: #aeffae;
 	outline: 2px solid #008f00;
 	outline-offset: -2px;
+}
+.hint{
+  background-color: #f0e68c;
+  margin: 12px;
+  padding: 4px 8px;
+  display: none;
 }
 
 /* |-|-|-| #deusex */
@@ -514,6 +540,8 @@ li:last-child > .widget-list-link {
 	border-right: 1px solid;
 }
 .button-dx:focus{outline:0;}
+
+.tac{text-align: center;}
 
 @media (max-width: 719px){
 	.widget {
