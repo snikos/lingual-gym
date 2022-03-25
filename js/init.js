@@ -79,6 +79,7 @@ if (!Array.prototype.shuffle) {
 		},
 		loadDer: function( num, callback ){
 			var url = 'deusexrev/der'+num+'.js';
+			console.log('num: ', num);
 
 			$.ajax({
 				type: 'get',
