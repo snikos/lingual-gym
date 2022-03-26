@@ -79,7 +79,6 @@ if (!Array.prototype.shuffle) {
 		},
 		loadDer: function( num, callback ){
 			var url = 'deusexrev/der'+num+'.js';
-			console.log('num: ', num);
 
 			$.ajax({
 				type: 'get',
@@ -111,6 +110,7 @@ if (!Array.prototype.shuffle) {
 			l.reload();
 		},
 		preLoadDer: function( num, foo ){
+			console.log('pre num: ', num);
 			if( widget.derObject['der'+num] === undefined ){
 				widget.loadDer( num, foo );
 			} else {
@@ -121,21 +121,22 @@ if (!Array.prototype.shuffle) {
 		getupLString: function(hard){
 			$(document).find('#deusex-box').empty();
 			this.ranObj = +($("#datas").data("cur-sli"));
-			var lenny = 30;
+			var lenny = 31;
 			
 			switch(hard){
-			  case'rand': this.ranObj = Math.round( Math.random() * (lenny-1) );
+			  case'rand': this.ranObj = Math.round( Math.random() * lenny );
 			  break;
 				case'prev': this.ranObj -= 1;
 				break;
-				case'next': this.ranObj += 1;
-				break;
+				  case'next': this.ranObj += 1;
+				  break;
 			}
-			//console.log(this.ranObj +', '+ hard)
+			console.log(this.ranObj +', '+ hard);
 
 			this.preLoadDer( Math.abs(widget.ranObj), ( data ) => {
 			
-			var ranItem = Object.keys(widget.derObject)[widget.ranObj];
+			//var ranItem = Object.keys(widget.derObject)[widget.ranObj];
+			var ranItem = 'der'+ Math.abs(this.ranObj);
 
 			var listArray = [];
 			listArray = ( data !== undefined ) ?
@@ -163,8 +164,8 @@ if (!Array.prototype.shuffle) {
 			}
 
 			var curObjLen = this.ranObj;
-			( this.ranObj >= lenny-1 ) ? (curObjLen=0) : ( this.ranObj <= 0 ) ? (curObjLen=lenny-1) : '';
-			//ranObj = curObjLen;
+			( this.ranObj >= lenny ) ? (curObjLen=0) : ( this.ranObj <= 0 ) ? (curObjLen=lenny) : '';
+
 			$("#datas").data("cur-sli", (+curObjLen));
 			//console.log( 'Dron: '+ this.ranObj +' : '+ lenny +' : '+ curObjLen +' : '+ $("#datas").data("cur-sli") );
 
@@ -172,41 +173,47 @@ if (!Array.prototype.shuffle) {
 		},
 		getupLS: function(prefix){
 			var ls = window.localStorage;
-			var zero = '<li class="tac"><b>Need to click "M+" to add a text right here.</b></li>';
-			$(document).find('#managers').append(zero);
 			if( ls.length === 0 ) return;
 
 			if( ls['db'+'-'+'memo'] !== undefined ){
 				var currentPfx = (ls['db'+'-'+'memo']).split('|');
-				$(document).find('#managers').empty();
+				//console.log('Ls:'+ ls['db'+'-'+'memo']);
 				$.each(currentPfx, function(idx, el){
 					if( idx < currentPfx.length-1 ){
 						var savagen = (Math.round(Math.random()*99)).toString(2);
 						var memo = el.split('~~');
-						var tpl = '<li><a class="widget-list-link"><span class="box-img" data-string="'+el+'"><img src="https://www.gravatar.com/avatar/'+savagen+'?f=y&amp;s=32&amp;d=identicon"'+'onerror="this.src=\'css/err.png\'"></span><p><dfn>'+memo[0]+'</dfn><ins>'+memo[1]+'</ins><span class="count">text</span></p></a></li>';
+						var tpl = '<li><a class="widget-list-link"><span class="box-img" data-string="'+el+'"><img src="http://www.gravatar.com/avatar/'+savagen+'?f=y&amp;s=32&amp;d=identicon"'+'onerror="this.src=\'css/err.png\'"></span><p><dfn>'+memo[0]+'</dfn><ins>'+memo[1]+'</ins><span class="count">text</span></p></a></li>';
 						$(document).find('#managers').append(tpl);
 					}
 				});
 			} else {
 				var savagen = (Math.round(Math.random()*99)).toString(2);
-				var tpl = '<li><a class="widget-list-link"><span class="box-img" data-string=""><img src="https://www.gravatar.com/avatar/'+savagen+'?f=y&amp;s=32&amp;d=identicon"'+'onerror="this.src=\'css/err.png\'"></span><p>Clean<span class="count">text</span></p></a></li>';
+				var tpl = '<li><a class="widget-list-link"><span class="box-img" data-string=""><img src="http://www.gravatar.com/avatar/'+savagen+'?f=y&amp;s=32&amp;d=identicon"'+'onerror="this.src=\'css/err.png\'"></span><p>Clean<span class="count">text</span></p></a></li>';
 				$(document).find('#managers').append(tpl);
 			}
 		},
 		/* save localStorage */
 		saveLS: function(prefix,curUltimatum,curItemIndex){
 			var ls = window.localStorage;
+			/*var oldArr = [], newArr = [];
+
+			if(curUltimatum == '') return;
+				oldArr.push(ls[prefix+'-'+curUltimatum]);
+				( oldArr[0] == undefined ) ? oldArr = [] : oldArr = oldArr;
+				oldArr.push(curItemIndex);
+				newArr = newArr.concat( oldArr, newArr );
+				ls[prefix+'-'+curUltimatum] = newArr;*/
 			var oldstr='', newstr='';
 			if(curUltimatum == '') return;
 			    oldstr += ls[prefix+'-'+curUltimatum];
 				(oldstr === 'undefined') ? oldstr = '' : oldstr = oldstr;
-				//console.log(oldstr.search(curItemIndex));
+				console.log(oldstr.search(curItemIndex));
 				if( oldstr.search(curItemIndex) === -1 ){ 
-					//console.log(oldstr.search(curItemIndex));
+					console.log(oldstr.search(curItemIndex));
 					oldstr += curItemIndex+'|';
 					newstr += oldstr;
 					ls[prefix+'-'+curUltimatum] = newstr;
-					//console.log(oldstr + ':'+ newstr);
+					console.log(oldstr + ':'+ newstr);
 			    }
 		},
 		widgetDom: $(document).find('.widget .widget-list'),
@@ -315,11 +322,11 @@ if (!Array.prototype.shuffle) {
 				designers();
 				function developers(){
 					var aw = widget.counter('forex');
-					var tpl = '<li class="startus"><span class="status">Try!</span><span class="counter">All words:'+(aw)+'</span><span id="resetPhrase">reset</span></li>';
-					tpl += '<li class="ex">'+((l==='en')?lang1:lang2)+'</li>';
+					var tpl = '<li class="ex">'+((l==='en')?lang1:lang2)+'</li>';
 					tpl += '<li class="test-area"></li>';
 					tpl += '<li class="puzzle">'+((l==='en')?tplSpan(lang2):tplSpan(lang1))+'</li>';
 					tpl += '<li class="hint"></li>';
+					tpl += '<li class="alert"><span class="status">Try!</span><span class="counter">All words:'+(aw)+'</span><span id="resetPhrase">reset</span></li>';
 
 					//this.clearAll();
 					widget.widgetDom.eq(-1).html( tpl );
@@ -340,6 +347,12 @@ if (!Array.prototype.shuffle) {
 				}
 		  });
 		},
+		compareArray: function (a, b) {
+			//It works sometimes wrong
+			return !a.some(function (e, i) {
+				return e != b[i];
+			});
+		},
 		log: function(a){
 			//console.log( typeof a, a, arguments.callee);
 		},
@@ -350,7 +363,7 @@ if (!Array.prototype.shuffle) {
 			//console.log('savagen: '+ memo);
 			var tpl = '<li><a class="widget-list-link">'+
 			'<span class="box-img" data-string="'+memo+'">'+
-			'<img src="https://www.gravatar.com/avatar/'+savagen+'?f=y&amp;s=64&amp;d=identicon"'+
+			'<img src="http://www.gravatar.com/avatar/'+savagen+'?f=y&amp;s=64&amp;d=identicon"'+
 			'onerror="this.src=\'css/err.png\'"></span>'+
 			'<p><dfn>'+memon[0]+'</dfn><ins>'+memon[1]+'</ins><span class="count">text</span></p></a></li>';
 			$(document).find('#managers').append(tpl);
@@ -364,12 +377,12 @@ if (!Array.prototype.shuffle) {
 					var dataCurrenPhrase = widget.getData(widget.supObj, 'currentPhrase');
 					var currenText = ($(this).text()).toLowerCase();
 					var btnNextStep = $('#nextPhrase');
-					var getStrong = function(o){ return JSON.stringify(o) };
 					widget.setData(widget.supObj, 'currentPhrase').push(currenText);
 					$(this).addClass('hide');
 					//console.log( 'currenText: '+ currenText +'\ndataCurrPhrase: '+ dataCurrenPhrase +'\ndataRealPhrase: '+ dataRealPhrase );
-					if ( getStrong(dataRealPhrase) === getStrong(dataCurrenPhrase) ){
-						widget.widgetDom.find('.startus').addClass('success').children('.status').html('Success!');
+					//if ( widget.compareArray(dataRealPhrase, dataCurrenPhrase) ){
+					if ( JSON.stringify(dataRealPhrase) === JSON.stringify(dataCurrenPhrase) ){
+						widget.widgetDom.find('.alert').addClass('success').children('.status').html('Success!');
 						btnNextStep.addClass('active');
 						//$(document).off('click.drop', '.test-area .frog');
 					}
@@ -382,15 +395,12 @@ if (!Array.prototype.shuffle) {
 					var $that = $(this);
 					var hook = $that.data('hook');
 					var btnNextStep = $('#nextPhrase');
-
-					var nextxt = $that.index();
-					widget.setData(widget.supObj, 'currentPhrase').splice(nextxt, 1);
-
+					widget.setData(widget.supObj, 'currentPhrase').pop();
 					$(document).find('.puzzle .frog').filter( function(){
 						$(this).data('hook') === hook ? $(this).removeClass('hide') : '';
 					});
 					$(this).remove();
-					widget.widgetDom.find('.startus').removeClass('success').children('.status').html('Carry on!');
+					widget.widgetDom.find('.alert').removeClass('success').children('.status').html('Carry on!');
 					btnNextStep.removeClass('active');
 					event.stopPropagation();
 					event.preventDefault();
@@ -404,7 +414,7 @@ if (!Array.prototype.shuffle) {
 					$(document).find('.test-area').empty();
 					$(document).find('.puzzle .frog').removeClass('hide');
 					widget.setData(widget.supObj, 'currentPhrase', []);
-					widget.widgetDom.find('.startus').removeClass('success').children('.status').html(txt);
+					widget.widgetDom.find('.alert').removeClass('success').children('.status').html(txt);
 					return false;
 				});
 			},
@@ -413,9 +423,10 @@ if (!Array.prototype.shuffle) {
 					var rel = widget.setData(widget.supObj, 'realPhraseTwo');
 					var val = $(this).val();
 					var btnNextStep = $('#nextPhrase');
-					var getStrong = function(o){ return JSON.stringify(o).toString().trim().toLowerCase() };
-					//console.log( 'real: '+ (typeof rel) +':'+ rel +'\nmain: '+ (typeof val) +':'+ val );
-					if ( getStrong(rel)===getStrong(val) ){
+					rel = rel.toString().trim().toLowerCase();
+					val = val.toString().trim().toLowerCase();
+					console.log( 'real: '+ (typeof rel) +':'+ rel +'\nmain: '+ (typeof val) +':'+ val );
+					if ( JSON.stringify(rel) === JSON.stringify(val) ){
 						$(this).addClass('success');
 						btnNextStep.addClass('active');
 					} else {
@@ -448,10 +459,6 @@ if (!Array.prototype.shuffle) {
 					var l = widget.getData(widget.supObj, 'lang');
 					//console.log('langData: '+ l);
 					widget.testStarter(l);
-
-					setTimeout(function(){
-						$('#nextPhrase').removeClass('active');
-					}, 3500);
 					event.stopPropagation();
 					event.preventDefault();
 				});
@@ -459,7 +466,7 @@ if (!Array.prototype.shuffle) {
 			addMemo: function(){
 				$(document).on('click', '#addMemo', function(event){
 					var memo = widget.getData(widget.supObj, 'dataMemo');
-					//console.log('memo: '+ memo);
+					console.log('memo: '+ memo);
 					widget.saveLS('db', 'memo', memo);
 					widget.createMemo();
 					event.stopPropagation();
