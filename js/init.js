@@ -121,17 +121,17 @@ if (!Array.prototype.shuffle) {
 		getupLString: function(hard){
 			$(document).find('#deusex-box').empty();
 			this.ranObj = +($("#datas").data("cur-sli"));
-			var lenny = 31;
-			
+			var lenny = 33;
+
 			switch(hard){
 			  case'rand': this.ranObj = Math.round( Math.random() * lenny );
 			  break;
-				case'prev': this.ranObj -= 1;
+				case'prev': this.ranObj <= 0 ? this.ranObj = lenny : this.ranObj -= 1;
 				break;
-				  case'next': this.ranObj += 1;
+				  case'next': this.ranObj >= lenny ? this.ranObj = 0 : this.ranObj += 1;
 				  break;
 			}
-			console.log(this.ranObj +', '+ hard);
+			//console.log('after: ' + this.ranObj +', '+ hard);
 
 			this.preLoadDer( Math.abs(widget.ranObj), ( data ) => {
 			
@@ -163,11 +163,7 @@ if (!Array.prototype.shuffle) {
 				$('#deusex').addClass('clear');
 			}
 
-			var curObjLen = this.ranObj;
-			( this.ranObj >= lenny ) ? (curObjLen=0) : ( this.ranObj <= 0 ) ? (curObjLen=lenny) : '';
-
-			$("#datas").data("cur-sli", (+curObjLen));
-			//console.log( 'Dron: '+ this.ranObj +' : '+ lenny +' : '+ curObjLen +' : '+ $("#datas").data("cur-sli") );
+			$("#datas").data("cur-sli", (+this.ranObj));
 
 			});// foo callback
 		},
